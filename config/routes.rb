@@ -1,26 +1,9 @@
-# Rails.application.routes.draw do
-#   # Health check
-#   get "up" => "rails/health#show", as: :rails_health_check
-#
-#   # API routes
-#   scope 'v1' do
-#     scope module: 'api/v1' do
-#       # Accounts
-#       resources :accounts, only: [:index, :create] do
-#         resources :coins, only: [:index, :create]
-#       end
-#
-#       # Users
-#       resources :users, only: [:index, :create]
-#     end
-#   end
-# end
 Rails.application.routes.draw do
   # Health check
   get "up" => "rails/health#show", as: :rails_health_check
 
   # API routes
-  scope 'v1' do
+  scope 'api/v1' do
     scope module: 'api/v1' do
       # Accounts
       resources :accounts, only: [:index, :create] do
@@ -30,9 +13,8 @@ Rails.application.routes.draw do
       # Users
       resources :users, only: [:index, :create]
 
-      # Custom route for fetching accounts of a specific user
-      get '/users/:user_id/accounts', to: 'accounts#index', as: :user_accounts
+      # Custom route for fetching all user accounts (GET)
+      get '/accounts/all_user_accounts', to: 'accounts#all_user_accounts', as: :all_user_accounts
     end
   end
 end
-

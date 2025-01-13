@@ -18,6 +18,15 @@ module Api::V1
       render json: { success: true, accounts: accounts }, status: :ok
     end
 
+    # Action to get all accounts of all users
+    def all_user_accounts
+      # Retrieving all accounts associated with users
+      accounts = Account.all
+
+      # Responding with JSON and sending status 200 (OK)
+      render json: { success: true, accounts: accounts }, status: :ok
+    end
+
     def create
       account = AccountService.new.create(params)
       render json: { success: true, account: account }, status: :created
