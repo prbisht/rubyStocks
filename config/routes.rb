@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       # Accounts
       resources :accounts, only: [:index, :create] do
         resources :coins, only: [:index, :create]
+        get 'coins/:coin_name', to: 'coins#show', as: :coin
       end
 
       # Users
