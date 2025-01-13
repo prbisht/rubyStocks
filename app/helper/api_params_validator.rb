@@ -1,16 +1,13 @@
-# frozen_string_literal: true
-
-require 'json-schema'
-
 class ApiParamsValidator
   class << self
     def validate_create_account_params?(params)
       raise ApiExceptions::USER_NOT_FOUND, 'user_id is required' unless params[:user_id].present?
       true
     end
+
     def validate_coin_params?(params)
       raise ApiExceptions::ACCOUNT_ID_NOT_PASSED unless params[:account_id].present?
-      raise ApiExceptions::COIN_NOT_SUPPORTED unless params[:coin_name].present?
+      raise ApiExceptions::COIN_NOT_SUPPORTED unless params[:coin].present? && ['BTC', 'ETH', 'LTC'].include?(params[:coin].upcase)
       true
     end
 
