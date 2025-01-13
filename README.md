@@ -1,35 +1,53 @@
-# README
+# Coin Management API
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+This is a simple API for managing coins in an account. It allows users to:
 
-Things you may want to cover:
+1. Add new coins to an account or update existing coins' quantities.
+2. Retrieve all coins associated with an account.
+3. Retrieve details for a specific coin.
 
-* Ruby version
+## Example API Endpoints
+1. GET /api/v1/coins
 
-* System dependencies
+2. GET /api/v1/coins?account_id=<account_id>
+    Retrieve all the coins associated with a specific account.
 
-* Configuration
+3. POST /api/v1/coins
+    Create a new coin or update an existing coin's quantity. If the coin already exists, the quantity will be updated.
 
-* Database creation
+4. POST /api/v1/coins?account_id=<account_id>
 
-* Database initialization
+   Request:
+    ```bash
+    {
+      "coin": "BTC",
+      "quantity": 10
+    }
+    ```
+    
+    Response:
+   ```bash
+    {
+      "success": true,
+      "coin": {
+        "name": "BTC",
+        "quantity": 10
+      }
+    }
+   ```
+4. GET /api/v1/coins/:coin_name
+Retrieve details for a specific coin associated with the account.
 
-* How to run the test suite
+5. GET /api/v1/coins/BTC?account_id=<account_id>
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-
-
-Build Stock managment system using Ruby on Rails
-1 - users [addusers, get the users, get all accounts of user]
-2 - user will have accounts [add account, get account, get all coins of account]
-3 - accounts will have coins [add coin, get coin]   [BTC, ETH]
-
-
-rails db:create
-rails db:migrate
+   Response:
+   ```bash
+    {
+      "success": true,
+      "coin": {
+        "name": "BTC",
+        "quantity": 10
+      }
+    }
+   ```
 
