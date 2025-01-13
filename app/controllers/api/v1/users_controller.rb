@@ -1,15 +1,13 @@
 module Api::V1
   class UsersController < Api::BaseController
-
-=begin
-    before_action only: [:index] do
-      ApiParamsValidator.validate_users_index_params?(params)
-    end
-=end
-
     def index
-      user = UserService.new.user_accounts(params)
-      render json: { success: true, user: user }, status: :created
+      if params[:user_id].present?
+        user = UserService.new.user_accounts(params)
+        render json: { success: true, user: user }, status: :ok
+      else
+        users = User.all
+        render json: { success: true, users: users }, status: :ok
+      end
     end
 
     def create

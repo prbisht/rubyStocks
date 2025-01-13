@@ -1,14 +1,38 @@
+# Rails.application.routes.draw do
+#   # Health check
+#   get "up" => "rails/health#show", as: :rails_health_check
+#
+#   # API routes
+#   scope 'v1' do
+#     scope module: 'api/v1' do
+#       # Accounts
+#       resources :accounts, only: [:index, :create] do
+#         resources :coins, only: [:index, :create]
+#       end
+#
+#       # Users
+#       resources :users, only: [:index, :create]
+#     end
+#   end
+# end
 Rails.application.routes.draw do
-  # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
-
-  # Reveal health status on /up that returns 200 if the app boots with no exceptions, otherwise 500.
-  # Can be used by load balancers and uptime monitors to verify that the app is live.
+  # Health check
   get "up" => "rails/health#show", as: :rails_health_check
 
-  # Defines the root path route ("/")
-  # root "posts#index"
-  get '/v1/accounts', to: 'api/v1/accounts#index'
-  post '/v1/accounts', to: 'api/v1/accounts#create'
-  get '/v1/users', to: 'api/v1/users#index'
-  post '/v1/users', to: 'api/v1/users#create'
+  # API routes
+  scope 'v1' do
+    scope module: 'api/v1' do
+      # Accounts
+      resources :accounts, only: [:index, :create] do
+        resources :coins, only: [:index, :create]
+      end
+
+      # Users
+      resources :users, only: [:index, :create]
+
+      # Custom route for fetching accounts of a specific user
+      get '/users/:user_id/accounts', to: 'accounts#index', as: :user_accounts
+    end
+  end
 end
+

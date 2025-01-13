@@ -1,5 +1,4 @@
 class AccountService
-
   def initialize()
   end
 
@@ -14,5 +13,4 @@ class AccountService
   end
 
   private
-
 end

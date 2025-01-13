@@ -4,6 +4,11 @@ require 'json-schema'
 
 class ApiParamsValidator
   class << self
+    def validate_coin_params?(params)
+      raise ApiExceptions::ACCOUNT_ID_NOT_PASSED unless params[:account_id].present?
+      raise ApiExceptions::COIN_NOT_SUPPORTED unless params[:coin_name].present?
+      true
+    end
 
     def validate_transaction_params?(params)
       transaction_type = params[:transaction_type]
@@ -28,6 +33,5 @@ class ApiParamsValidator
     def validate_users_index_params?(params)
       raise ApiExceptions::ACCOUNT_ID_NOT_PASSED unless params[:user_id].present?
     end
-
   end
 end
